@@ -1,25 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-  <link rel="stylesheet" href="../CSS/Style.css" type="text/css">
-  <title>New User</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./CSS/Style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="./CSS/Header.css">
+      <title>New User</title>
+  </head>
+    <body>
+      <div class="header">
+        <div class="inner_header">
+          <div class="logo_container">
+            <a href="./Home.html">
+              <h1>
+                <img src="./Images/DB.png" alt="" width="50" height="50">
+                Survey<span>Master</span>
+              </h1>
+            </a>
+          </div>
 
-<body>
-<h1> <a href="../Images/DB.png"><img src="../Images/DB.png" alt="" width="50" height="50"></a> Welcome to </h1>
+          <ul class="navigation">
+            <a href="./Home.html"><li>Home</li></a>
+            <a href="./CreateAccount.html"><li>Register</li></a>
+            <a href="./Login.html"><li>Login</li></a>
+          </ul>
+        </div>
+      </div>
+    <div class="register-page">
+      <h1>Create Account</h1>
+        <form method="post">
+          <fieldset class="field">
+            <div class="form-group">
+              <label>First Name:</label>
+              <br>
+              <input
+                type="text"
+                class="input"
+                placeholder="Enter your first name"
+              />
+              <br>
+            </div>
+            <div class="form-group">
+              <label>Last Name:</label>
+              <br>
+              <input
+                type="text"
+                class="input"
+                placeholder="Enter your last name"
+              />
+              <br>
+            </div>
+            <div class="form-group">
+              <label>Email:</label>
+              <br>
+              <input
+                type="text"
+                class="input"
+                placeholder="Enter your email"
+              />
+              <br>
+            </div>
+            <div class="form-group">
+              <label>Password:</label>
+              <br>
+              <input
+                type="text"
+                class="input"
+                placeholder="Password"
+              />
+              <br>
+            </div>
 
-<form method="post">
-  <fieldset>
-    <legend>Sign Up</legend>
-    <label>First Name:</label> <input type="text"> <br>
-    <label>Last Name:</label> <input type="text"> <br>
-    <label>Email:</label> <input type="text"> <br>
-    <label>Password:</label> <input type="text"> <br>
-
-    <input type="submit" value="Create Account"> </fieldset>
-</form>
-<br>
-<footer>Copyright &copy; COP4710<br></footer> 
-</body>
+            <div class="button">
+              <input
+                type="submit"
+                class="submit"
+                value="Create Account"
+              />
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </body>
+    <footer>Copyright &copy; COP4710<br></footer>
 </html>

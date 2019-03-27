@@ -1,32 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="../CSS/Style.css" type="text/css">
-  <title>Home</title>
-  
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./CSS/Style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="./CSS/Header.css">
+      <title>Home</title>
+  </head>
 
-<body>
-<form>
-<h1> <a href="../Images/DB.png"><img src="../Images/DB.png" alt="" width="50" height="50"></a> Survey</h1>
-<p>Survey Description</p>
-<br>
-<p>Question 1</p>
-	<input type="radio" value="1">1
-	<input type="radio" value="2">2
-	<input type="radio" value="3">3
-	<input type="radio" value="4">4
-	<input type="radio" value="5">5
-<br>
-<p>Question 2</p>
-<textarea maxlength="200" rows="10" cols="50"></textarea>
-<br>
-<br>
-<input type="submit" value="Submit"/>
-</form>
-<br>
-<footer>Copyright &copy; COP4710<br>
-</footer> 
-</body>
+  <body>
+    <div class="header">
+      <div class="inner_header">
+        <div class="logo_container">
+        <a href="./Home.html">
+          <h1>
+            <img src="./Images/DB.png" alt="" width="50" height="50">
+            Survey<span>Master</span>
+          </h1>
+        </a>
+      </div>
+
+        <ul class="navigation">
+          <a href="./Home.html"><li>Home</li></a>
+          <a href="./CreateAccount.html"><li>Register</li></a>
+          <a href="./Login.html"><li>Login</li></a>
+        </ul>
+      </div>
+    </div>
+
+    <div class="home-page">
+      <form>
+        <h1>Survey</h1>
+        <p>Survey Description</p>
+        <br>
+        <p>Question 1</p>
+        	<input type="radio" value="1">1
+        	<input type="radio" value="2">2
+        	<input type="radio" value="3">3
+        	<input type="radio" value="4">4
+        	<input type="radio" value="5">5
+        <br>
+        <p>Question 2</p>
+        <textarea maxlength="200" rows="10" cols="50"></textarea>
+        <br>
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+  </body>
+  <footer>Copyright &copy; COP4710<br></footer>
 </html>
