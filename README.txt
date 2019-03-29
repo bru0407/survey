@@ -22,8 +22,8 @@ being too large. Afterwards, run:
 $ npm run server
 
 This runs the server and should have a successful message in the command line as:
+> Server running on port 5000
 > MongoDB Connected
-> Server running on port ####
 
 Right now the local server is 5000. To test a successful connection, go to the URL 
 of the browser and type:
