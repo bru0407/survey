@@ -23,9 +23,11 @@ height="50"> <span>Survey</span><span>Master</span> </a></h1>
   <button class="dropbtn">Menu<i class="down"></i> </button> 
 
   <div class="dropdown-content">
-  <a href="CreateAccount.html">Register</a> 
-<a href="CreateSurvey.html">Create Survey</a>
-<a href="Login.html">Logout</a>
+  <a href="./CreateAccount.html">Register</a> 
+<a href="./Survey.html">Survey</a>
+<a href="./CreateSurvey.html">Create Survey</a>
+<a href="./Result.html">Results</a>
+<a href="./Login.html">Logout</a>
   </div>
   </div>
 </ul>
@@ -35,8 +37,22 @@ height="50"> <span>Survey</span><span>Master</span> </a></h1>
 <div class="create">
 	<h1>Create your own survey</h1>
 <p>In the text box provide below, type two questions that you would like our team to create survey out of.</p>
-<textarea maxlength="200" rows="10" cols="50"></textarea><br>
+<form action="Survey.html" method="get" id="questions">
+<p>Question 1</p>
+<input type="text" name="question1" size="50"/>
+<p>Question 2</p>
+<input type="text" name="question2" size="50"/>
+<br>
  <input type="submit" value="Submit">  <br>
+</form>
+
+<script>
+function getquestions(){
+var x,Q1,Q2;
+x=document.getElementById("questions");
+Q1=x.elements("questions1").value;
+Q2=x.elements("questions2").value;
+</script>
 </div>
 </body>
 <footer>Copyright &copy; COP4710<br></footer>

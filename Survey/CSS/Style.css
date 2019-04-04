@@ -218,9 +218,16 @@ height: 20px;
 }
 .images p{
 	position:relative;
-	width:100;
+	width:100%;
 	text-align:center;
 	left:0;
 	color:black;
 	font-family:cursive;
 }
+#demo{
+	color:black;
+	font-family:cursive;
+	font-size:24px;
+	border:1px solid black;
+}
+
