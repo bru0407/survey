@@ -1,4 +1,3 @@
-
 <?php include('server.php') ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,30 +21,67 @@
         <div class="dropdown">
           <button class="dropbtn">Menu<i class="down"></i></button>
           <div class="dropdown-content">
-            <a href="registration.php">Register</a>
+            <?php if (empty($_SESSION['username'])) { ?>
+              <a href="registration.php">Register</a>
+              <a href="Login.php">Login</a>
+            <?php } else { ?>
+              <a href="account.php">Account</a>
             <a href="CreateSurvey.php">Create Survey</a>
-            <a href="Login.php">Login</a>
+            <?php } ?>
           </div>
         </div>
       </ul>
     </div>
   </div>
 
+
 <div class="home-page">
-  <h1>Welcome to SurveyMaster</h1>
-  <div class="images">
-    <a href="Login.php">
-      <img src="https://lh3.googleusercontent.com/0N_6m-gZn6WJbaweASX6e_RXp5tmUU77e2qV6nfPp0-VStWC41lWp-tYWrI_A3-K7jBkSvMQB8Ie0-5CzQqGRHmy5LgWd34=s688" alt="" width="200"height="200">
-      <p>Member Login</p>
-    </a>
+  <h1>SurveyMaster</h1>
+  <h2>Home of award winning surveys</h2>
+  <br>
+  <div class="wallpaper">
+      <img 
+        src="home.jpg" 
+        alt="" 
+        class="home-picture"
+      >
+      <button class="btn"><a href="Login.php">Start Here</a></button>
   </div>
 
-  <div class="images">
-    <a href="registration.php">
-      <img src="https://static.thenounproject.com/png/542237-200.png" alt="" width="200"height="200">
-      <p>New User</p>
-    </a>
+  <div class="row">
+    <h1>Acknowledgements</h1> 
+    <div class="column">
+      <img 
+        src="https://i2.wp.com/www.wakeed.org/wp-content/uploads/2016/07/award-icon-06.png" 
+        alt="" 
+        class="award"
+        width="90"
+        height="auto"
+      >
+      <h2>Test</h2>
+    </div>
+    <div class="column">
+      <img 
+        src="https://i2.wp.com/www.wakeed.org/wp-content/uploads/2016/07/award-icon-06.png" 
+        alt="" 
+        class="award"
+        width="90"
+        height="auto"
+      >
+      <h2>Test</h2>
+    </div>
+    <div class="column">
+      <img 
+        src="https://i2.wp.com/www.wakeed.org/wp-content/uploads/2016/07/award-icon-06.png" 
+        alt="" 
+        class="award"
+        width="90"
+        height="auto"
+      >
+      <h2>Test</h2>
+    </div>
   </div>
+
 </div>
 
 <footer>Copyright &copy; COP4710<br>

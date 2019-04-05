@@ -27,7 +27,7 @@
 
                 <img src="http://www.flexrule.com/wp-content/uploads/2014/06/db.png" alt="" width="50" height="50">
 
-                Survey<span>Master</span>
+                SurveyMaster
 
               </h1>
 
@@ -39,15 +39,19 @@
 
           <ul class="navigation">
 
-<div class="dropdown">
-	<button class="dropbtn">Menu<i class="down"></i>
-</button>
-<div class="dropdown-content">
-          <a href="registration.php">Register</a>
-<a href="CreateSurvey.php">Create Survey</a>
-          <a href="Login.php">Login</a>
-</div>
-</div>
+          <div class="dropdown">
+            	<button class="dropbtn">Menu<i class="down"></i>
+              </button>
+            <div class="dropdown-content">
+              <?php if (empty($_SESSION['username'])) { ?>
+                <a href="registration.php">Register</a>
+                <a href="Login.php">Login</a>
+              <?php } else { ?>
+                <a href="account.php">Account</a>
+                <a href="CreateSurvey.php">Create Survey</a>
+              <?php } ?>
+            </div>
+          </div>
         </ul>
         </div>
 
