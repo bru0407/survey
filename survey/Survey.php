@@ -29,13 +29,14 @@
     <button class="dropbtn">Menu<i class="down"></i> </button> 
 
     <div class="dropdown-content">
-      <?php if (empty($_SESSION['username'])) { ?>
-        <a href="registration.php">Register</a>
-        <a href="Login.php">Login</a>
-      <?php } else { ?>
-        <a href="account.php">Account</a>
-        <a href="CreateSurvey.php">Create Survey</a>
-      <?php } ?>
+      <?php if (empty($_SESSION['loggedin']) || !isset($_SESSION['loggedin'])) { ?>
+              <a href="registration.php">Register</a>
+              <a href="Login.php">Login</a>
+              <?php } else { ?>
+              <a href="account.php">Account</a>
+              <a href="CreateSurvey.php">Create Survey</a>
+              <a href="logout.php">Logout</a>
+              <?php } ?>
     </div>
     </div>
   </ul>

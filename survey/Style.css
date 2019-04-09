@@ -368,3 +368,28 @@ footer
   border-style: double;
   border-width: 5px;
 }
+
+.createsurvey-page input[type=text]
+{
+  width: 100%;
+}
+
+.textbox
+{
+  border:2px solid black;
+  border-radius:4px;
+  width: 100%;
+}
+
+.form-group
+{
+  width: 70%;
+  margin: auto;
+  padding: 0;
+}
+
+/* Recipients Page */
+.table 
+{
+  width: 100%;
+}

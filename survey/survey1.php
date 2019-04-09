@@ -1,24 +1,10 @@
-<?php include('server.php') ?>
-<?php
-if(!(isset($_SESSION['username'])))
-{
-  $_SESSION['msg'] = "You must log in to view this page.";
-  header("location: /survey/login.php");
-}
-
-if(isset($_GET['logout']))
-{
-  session_destroy();
-  unset($_SESSION['username']);
-  header("location: /survey/login.php");
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./Style.css" type="text/css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <title>Create Survey</title>
   </head>
   <body>
@@ -35,21 +21,16 @@ if(isset($_GET['logout']))
           <div class="dropdown">
             <button class="dropbtn">Menu<i class="down"></i></button>
             <div class="dropdown-content">
-              <?php if (empty($_SESSION['loggedin']) || !isset($_SESSION['loggedin'])) { ?>
               <a href="registration.php">Register</a>
               <a href="Login.php">Login</a>
-              <?php } else { ?>
               <a href="account.php">Account</a>
               <a href="CreateSurvey.php">Create Survey</a>
               <a href="logout.php">Logout</a>
-              <?php } ?>
             </div>
           </div>
         </ul>
       </div>
     </div>
-    <?php
-      if(isset($_SESSION['username'])) : ?>
         <div class="createsurvey-page">
           <h1>Create Your Survey</h1>
           <form method="post">
@@ -61,15 +42,9 @@ if(isset($_GET['logout']))
               <br>
             </div>
             <div class="form-group">
-              <label>Email:</label>
+              <label>Survey Description:</label>
               <br>
-              <input type="email" class="input" name="email" placeholder="Enter your email."/>
-              <br>
-            </div>
-            <div class="form-group">
-              <label>Password:</label>
-              <br>
-              <input type="password" class="input" name="password1" placeholder="Enter your password."/>
+              <textarea class="textbox" maxlength="300" rows="10" cols="50" placeholder="Enter survey description."></textarea>
               <br>
             </div>
             <div class="form-group">
@@ -79,12 +54,53 @@ if(isset($_GET['logout']))
               <br>
             </div>
             <div class="button">
-              <input type="submit" class="submit" value="Create Account"/>
+              <input type="submit" name="submit" id="submit" class="submit" value="Create Account"/>
             </div>
           </fieldset>
         </form>
     </div>
-    <?php endif ?>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){      
+      var postURL = "./addmore.php";
+      var i=1;  
+
+
+      $('#add').click(function(){  
+           i++;  
+           $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      });
+
+
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+
+
+      $('#submit').click(function(){            
+           $.ajax({  
+                url:postURL,  
+                method:"POST",  
+                data:$('#add_name').serialize(),
+                type:'json',
+                success:function(data)  
+                {
+                    i=1;
+                    $('.dynamic-added').remove();
+                    $('#add_name')[0].reset();
+                    alert('Record Inserted Successfully.');
+                }  
+           });  
+      });
+
+
+    });  
+</script>
+
+
+
   </body>
 <footer>Copyright &copy; COP4710<br></footer>
 </html>
