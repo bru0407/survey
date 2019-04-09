@@ -12,7 +12,8 @@
     <div class="inner_header">
       <div class="logo_container">
         <a href="/survey/home.php">
-          <h1> <img src="http://www.flexrule.com/wp-content/uploads/2014/06/db.png" alt="" width="50" height="50">
+          <img src="https://cdn.pixabay.com/photo/2017/05/15/23/48/survey-2316468_1280.png" alt="" width="50" height="50">
+           <h1>
             SurveyMaster
           </h1>
         </a>
@@ -46,40 +47,49 @@
         alt="" 
         class="home-picture"
       >
-      <button class="btn"><a href="Login.php">Start Here</a></button>
+      <button class="btn">
+        <?php if (empty($_SESSION['loggedin']) || !isset($_SESSION['loggedin'])) { ?>
+            <a href="Login.php">Start Here</a>
+        <?php } else { ?>
+            <a href="CreateSurvey.php">Start Here</a>
+        <?php } ?>
+      </button>
   </div>
 
   <div class="row">
     <h1>Acknowledgements</h1> 
     <div class="column">
       <img 
-        src="https://i2.wp.com/www.wakeed.org/wp-content/uploads/2016/07/award-icon-06.png" 
+        src="https://www.svgrepo.com/show/49676/climbing.svg" 
         alt="" 
         class="award"
-        width="90"
+        width="100"
         height="auto"
       >
-      <h2>Test</h2>
+      <h2>Rising</h2>
+      <h2>Award</h2>
     </div>
     <div class="column">
       <img 
-        src="https://i2.wp.com/www.wakeed.org/wp-content/uploads/2016/07/award-icon-06.png" 
+        src="https://png.pngtree.com/svg/20161018/e4ea6b608b.png" 
         alt="" 
         class="award"
-        width="90"
+        width="100"
         height="auto"
       >
-      <h2>Test</h2>
+      <h2>Backpack</h2>
+      <h2>Award</h2>
     </div>
     <div class="column">
       <img 
-        src="https://i2.wp.com/www.wakeed.org/wp-content/uploads/2016/07/award-icon-06.png" 
+        src="https://www.codot.gov/business/civilrights/assets/team-icon.png/image" 
         alt="" 
         class="award"
-        width="90"
+        width="100"
         height="auto"
       >
-      <h2>Test</h2>
+      <h2>Diversity</h2>
+      <h2>Award</h2>
     </div>
   </div>
 

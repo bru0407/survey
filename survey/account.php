@@ -18,19 +18,20 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
   </head>
   <body>
     <div class="header">
-      <div class="inner_header">
-        <div class="logo_container">
-          <a href="/survey/home.php">
-            <h1> <img src="http://www.flexrule.com/wp-content/uploads/2014/06/db.png" alt="" width="50" height="50">
-              SurveyMaster
-            </h1>
-          </a>
-        </div>
-        <ul class="navigation">
-          <div class="dropdown">
-            <button class="dropbtn">Menu<i class="down"></i></button>
-            <div class="dropdown-content">
-              <?php if (empty($_SESSION['loggedin']) || !isset($_SESSION['loggedin'])) { ?>
+    <div class="inner_header">
+      <div class="logo_container">
+        <a href="/survey/home.php">
+          <img src="https://cdn.pixabay.com/photo/2017/05/15/23/48/survey-2316468_1280.png" alt="" width="50" height="50">
+           <h1>
+            SurveyMaster
+          </h1>
+        </a>
+      </div>
+      <ul class="navigation">
+        <div class="dropdown">
+          <button class="dropbtn">Menu<i class="down"></i></button>
+          <div class="dropdown-content">
+            <?php if (empty($_SESSION['loggedin']) || !isset($_SESSION['loggedin'])) { ?>
               <a href="registration.php">Register</a>
               <a href="Login.php">Login</a>
               <?php } else { ?>
@@ -38,11 +39,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
               <a href="CreateSurvey.php">Create Survey</a>
               <a href="logout.php">Logout</a>
               <?php } ?>
-            </div>
           </div>
-        </ul>
-      </div>
+        </div>
+      </ul>
     </div>
+  </div>
       <h1>Welcome <?php echo $_SESSION['username']; ?></h1>
       <br>
   </body>

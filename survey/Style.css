@@ -14,6 +14,7 @@ h1
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   padding-top: 10px;
   text-align: center;
+  font-size: 45px;
 }
 
 p
@@ -288,7 +289,7 @@ footer
 
 .home-page h1
 {
-  font-size: 55px;
+  font-size: 60px;
   padding-top: 35px;
   margin: 0;
 }
@@ -386,6 +387,11 @@ footer
   width: 70%;
   margin: auto;
   padding: 0;
+}
+
+.form-group label
+{
+  font-size: 20px;
 }
 
 /* Recipients Page */
