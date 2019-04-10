@@ -75,54 +75,54 @@
 
             <div class="form-group">
               <label>Type 1 Questions:</label>
-              <table class="table table-bordered" id="type1">  
-                <tr>  
+              <table class="table table-bordered" id="type1">
+                <tr>
                     <td>
-                      <input 
-                        type="text" 
-                        name="name[]" 
-                        placeholder="Enter 1-5 type question." 
-                        class="input" 
-                        required="" 
+                      <input
+                        type="text"
+                        name="name[]"
+                        placeholder="Enter 1-5 type question."
+                        class="input"
+                        required=""
                       />
-                    </td>  
+                    </td>
                     <td>
-                      <button 
-                        type="button" 
-                        name="add" 
-                        id="add1" 
+                      <button
+                        type="button"
+                        name="add"
+                        id="add1"
                         class="btn btn-success"
                         >Add More</button>
-                    </td>  
-                  </tr>  
-                </table> 
+                    </td>
+                  </tr>
+                </table>
             </div>
 
             <br>
 
             <div class="form-group">
               <label>Type 2 Questions:</label>
-              <table class="table table-bordered" id="type2">  
-                <tr>  
+              <table class="table table-bordered" id="type2">
+                <tr>
                     <td>
-                      <input 
-                        type="text" 
-                        name="name[]" 
-                        placeholder="Enter text type question." 
-                        class="input" 
-                        required="" 
+                      <input
+                        type="text"
+                        name="name[]"
+                        placeholder="Enter text type question."
+                        class="input"
+                        required=""
                       />
-                    </td>  
+                    </td>
                     <td>
-                      <button 
-                        type="button" 
-                        name="add" 
-                        id="add2" 
+                      <button
+                        type="button"
+                        name="add"
+                        id="add2"
                         class="btn btn-success"
                         >Add More</button>
-                    </td>  
-                  </tr>  
-                </table> 
+                    </td>
+                  </tr>
+                </table>
             </div>
 
             <br>
@@ -138,33 +138,26 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function(){      
-      var i=1;  
-
-
-      $('#add1').click(function(){  
-           i++;  
-           $('#type1').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter 1-5 type question" class="input" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+    $(document).ready(function(){
+      var i=1;
+      $('#add1').click(function(){
+           i++;
+           $('#type1').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter 1-5 type question" class="input" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
       });
-
-      $('#add2').click(function(){  
-           i++;  
-           $('#type2').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter text type question" class="input" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      $('#add2').click(function(){
+           i++;
+           $('#type2').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter text type question" class="input" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
       });
-
-
-      $(document).on('click', '.btn_remove', function(){  
-           var button_id = $(this).attr("id");   
-           $('#row'+button_id+'').remove();  
-      });  
-
-    });  
+      $(document).on('click', '.btn_remove', function(){
+           var button_id = $(this).attr("id");
+           $('#row'+button_id+'').remove();
+      });
+    });
 </script>
 
 <script>
   $( function() {
     $( "#start" ).datepicker();
-
     $( "#end" ).datepicker();
   } );
 </script>

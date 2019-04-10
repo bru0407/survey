@@ -27,18 +27,27 @@ input[type=text]
 {
   border:2px solid black;
   border-radius:4px;
+
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
 input[type=email]
 {
   border:2px solid black;
   border-radius:4px;
+
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
 input[type=password]
 {
   border:2px solid black;
   border-radius:4px;
+
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
 input[type=submit]
@@ -91,6 +100,7 @@ footer
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
+
 /* Creating 3 equal Columns */
 .column {
   float: left;
@@ -115,6 +125,22 @@ footer
 {
   color:#F8F8FF;
   font-family:cursive;
+}
+
+.login-page a
+{
+  color: blue;
+  text-shadow: none;
+}
+
+.login-page .form-group
+{
+  width: 50%;
+}
+
+.login-page .form-group input
+{
+  width: 100%;
 }
 
 .field
@@ -154,15 +180,14 @@ footer
   text-shadow: none;
 }
 
-.form-group
-{
-  padding: 5px;
-}
-
-.input
+.register-page .form-group
 {
   width: 50%;
-  height: 20px;
+}
+
+.register-page .form-group input
+{
+  width: 100%;
 }
 
 .images
@@ -370,6 +395,11 @@ footer
   border-width: 5px;
 }
 
+.createsurvey-page input[type=date]
+{
+  width: 100%;
+}
+
 .createsurvey-page input[type=text]
 {
   width: 100%;
@@ -387,6 +417,7 @@ footer
   width: 70%;
   margin: auto;
   padding: 0;
+  background: white;
 }
 
 .form-group label
@@ -394,8 +425,63 @@ footer
   font-size: 20px;
 }
 
+.charNum
+{
+  color: white;
+  font-family:cursive;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  
+}
+
 /* Recipients Page */
 .table 
 {
+  width: 100%;
+}
+
+.table button
+{
+  float: right;
+}
+
+/* Account Page */
+.account-page
+{
+  text-align: center;
+}
+
+.account-page .btn 
+{
+  background-color: red;
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.account-page .btn:hover 
+{
+  background-color: darkred;
+}
+
+.account-page .btn a
+{
+  color: white;
+  text-decoration: none;
+}
+
+/* Survey */
+.survey-page
+{
+  text-align: center;
+  margin: 0;
+}
+
+.survey-page textarea
+{
+  border:2px solid black;
+  border-radius:4px;
   width: 100%;
 }

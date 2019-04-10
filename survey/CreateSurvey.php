@@ -1,10 +1,8 @@
-<?php include('server.php') ?>
 <?php
-if(!(isset($_SESSION['username'])))
-{
-  $_SESSION['msg'] = "You must log in to view this page.";
-  header("location: /survey/login.php");
-}
+
+session_start();
+// Include config file
+require_once "server.php";
 
 if(isset($_GET['logout']))
 {
@@ -12,6 +10,97 @@ if(isset($_GET['logout']))
   unset($_SESSION['username']);
   header("location: /survey/login.php");
 }
+
+// Define variables and initialize with empty values
+$username = $_SESSION['username'];
+$survey_desc = "";
+$survey_title = "";
+$survey_start = "";
+$survey_end = "";
+$type1s = ["", "", "", "", ""];
+$type2s = ["", "", "", "", ""];
+$title_err = "";
+$desc_err = "";
+$survey_url = "";
+$start_err = "";
+$end_err = "";
+
+
+function makeURL()
+{
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    while (1)
+    {
+        $key = '';
+        for ($i = 0; $i < 10; $i++) {
+            $key .= substr($chars, (random_int(0, 255) % (strlen($chars))), 1);
+        }
+        break;
+    }
+    return $key;
+}
+
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST")
+{
+  // Validate username
+  if(empty($_POST["survey_title"]))
+  {
+    $title_err = "Please enter a title for your survey.";
+  }
+  else
+  {
+    $survey_title = mysqli_real_escape_string($db, $_POST['survey_title']);
+  }
+
+  if(!empty($_POST["survey_desc"]))
+  {
+    $survey_desc = mysqli_real_escape_string($db, $_POST['survey_desc']);
+  }
+
+  //generate url
+  do
+  {
+    $random_url = makeURL();
+    $url_check_query = "SELECT * FROM surveys WHERE survey_url = '$random_url' LIMIT 1";
+    $url_check_result = mysqli_query($db, $url_check_query);
+    $url_survey = mysqli_fetch_assoc($url_check_result);
+  } while($url_survey['survey_url'] == $random_url);
+  $survey_url = $random_url;
+
+  if(empty($_POST["survey_start"]))
+  {
+    $start_error = "You must enter a start date.";
+  }
+  else
+  {
+    $survey_start = $_POST['survey_start'];
+    echo $survey_start;
+  }
+
+  if(empty($_POST["survey_end"]))
+  {
+    $end_error = "You must enter an end date.";
+  }
+  else
+  {
+    $survey_end = $_POST['survey_end'];
+  }
+
+  if(!empty($survey_url)) //and something about question count variables here
+  {
+    $insert_survey = "INSERT INTO surveys (username, survey_url, survey_title, survey_desc) VALUES ('$username',
+      '$survey_url', '$survey_title', '$survey_desc')";
+    mysqli_query($db, $insert_survey);
+    $_SESSION['survey_url'] = $survey_url;
+    $_SESSION['created'] = "Survey created successfully.";
+
+    echo ' <meta http-equiv="refresh" content="0;url=recipients.php">';
+  }
+}
+
+  // Close connection
+  mysqli_close($db);
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +108,19 @@ if(isset($_GET['logout']))
     <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./Style.css" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      function countChar(val) {
+        var len = val.value.length;
+        if (len >= 500) {
+          val.value = val.value.substring(0, 500);
+        } else {
+          $('#charNum').text(500 - len);
+        }
+      };
+    </script>
     <title>Create Survey</title>
   </head>
   <body>
@@ -49,43 +151,158 @@ if(isset($_GET['logout']))
       </ul>
     </div>
   </div>
-    <?php
-      if(isset($_SESSION['username'])) : ?>
         <div class="createsurvey-page">
           <h1>Create Your Survey</h1>
-          <form method="post">
+          <h1> OMFG  <?php echo $survey_start, $survey_end ?> </h1>
+          <form action="CreateSurvey.php" method="post">
           <fieldset class="create">
-            <div class="form-group">
+            <br>
+            <div class="form-group  <?php echo (!empty($title_err)) ? 'has-error' : ''; ?>">
               <label>Survey Title:</label>
               <br>
-              <input type="text" class="input" name="title" placeholder="Enter survey title."/>
+              <input type="text" class="input" name="survey_title" placeholder="Enter survey title." value="<?php echo $survey_title; ?>"/>
               <br>
+            <span class="help-block"><?php echo $title_err; ?></span>
+            <br>
             </div>
+
+            <br>
+            <div class="form-group  <?php echo (!empty($desc_err)) ? 'has-error' : ''; ?>">
+              <label>Survey Description:</label>
+              <br>
+              <textarea type="text" class="textbox" name="survey_desc" maxlength="500" rows="10" cols="50" onkeyup="countChar(this)" placeholder="Enter survey description." value="<?php echo $survey_desc; ?>"></textarea>
+              <div id="charNum" class="charNum"></div>
+              <br>
+            <span class="help-block"><?php echo $desc_err; ?></span>
+            <br>
+            </div>
+
+            <br>
+
+            <div class="form-group <?php echo (!empty($start_err)) ? 'has-error' : ''; ?>">
+              <label>Starting Date:</label>
+              <input type="text" id="survey_start" name="start" placeholder="Enter survey starting date." value="<?php echo $survey_start; ?>">
+            </div>
+            <br>
+            <span class="help-block"><?php echo $start_err; ?></span>
+
+            <br>
+
+            <div class="form-group <?php echo (!empty($end_err)) ? 'has-error' : ''; ?>">
+              <label>Ending Date:</label>
+              <input type="text" id="survey_end" name="end" placeholder="Enter survey ending date." value="<?php echo $survey_end; ?>">
+            </div>
+            <br>
+            <span class="help-block"><?php echo $end_err; ?></span>
+            <br>
+
+            <br>
+
             <div class="form-group">
-              <label>Email:</label>
-              <br>
-              <input type="email" class="input" name="email" placeholder="Enter your email."/>
-              <br>
+              <label>Type 1 Questions:</label>
+              <table class="table table-bordered" id="type1">
+                <tr>
+                    <td>
+                      <input
+                        type="text"
+                        name="name[]"
+                        placeholder="Enter 1-5 type question."
+                        class="input"
+                        required=""
+                      />
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        name="add"
+                        id="add1"
+                        class="btn btn-success"
+                        >Add More</button>
+                    </td>
+                  </tr>
+                </table>
             </div>
+
+            <br>
+
             <div class="form-group">
-              <label>Password:</label>
-              <br>
-              <input type="password" class="input" name="password1" placeholder="Enter your password."/>
-              <br>
+              <label>Type 2 Questions:</label>
+              <table class="table table-bordered" id="type2">
+                <tr>
+                    <td>
+                      <input
+                        type="text"
+                        name="name[]"
+                        placeholder="Enter text type question."
+                        class="input"
+                        required=""
+                      />
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        name="add"
+                        id="add2"
+                        class="btn btn-success"
+                        >Add More</button>
+                    </td>
+                  </tr>
+                </table>
             </div>
-            <div class="form-group">
-              <label>Confirm Password:</label>
-              <br>
-              <input type="password" class="input" name="password1" placeholder="Confirm password."/>
-              <br>
-            </div>
+
+            <br>
+
             <div class="button">
-              <input type="submit" class="submit" value="Create Account"/>
+              <a href="recipients.php">
+                <input type="submit" name="submit" id="submit" class="submit" value="Create Account"/>
+              </a>
             </div>
           </fieldset>
         </form>
     </div>
-    <?php endif ?>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      var i=1;
+      var j=1;
+      if(i < 6)
+      {
+      $('#add1').click(function(){
+           i++;
+           $('#type1').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter 1-5 type question" class="input" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove1">X</button></td></tr>');
+      });
+      }
+
+      if(j < 6)
+      {
+      $('#add2').click(function(){
+           j++;
+           $('#type2').append('<tr id="row'+j+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter text type question" class="input" required /></td><td><button type="button" name="remove" id="'+j+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
+      });
+      }
+      $(document).on('click', '.btn_remove1', function(){
+          i--;
+           var button_id = $(this).attr("id");
+           $('#row'+button_id+'').remove();
+      });
+      $(document).on('click', '.btn_remove2', function(){
+          j--;
+           var button_id = $(this).attr("id");
+           $('#row'+button_id+'').remove();
+      });
+    });
+</script>
+<script>
+  $( function() {
+    $( "#survey_start" ).datepicker({dateFormat: 'yy-mm-dd'});
+      $start = strtotime($_POST["start_date"]);
+      $start = date('Y-m-d H:i:s', $start); //okay i'm losing my mind nothing in these dates is saving
+    $( "#survey_end" ).datepicker({dateFormat: 'yy-mm-dd'});
+      $end = strtotime($_POST["end_date"]);
+      $end = date('Y-m-d H:i:s', $end); //saw someone say that it's bc it needs a .val() at the end to save it?? idk i'm going bananas
+  } );
+</script>
+
   </body>
 <footer>Copyright &copy; COP4710<br></footer>
 </html>

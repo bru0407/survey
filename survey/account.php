@@ -44,8 +44,15 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
       </ul>
     </div>
   </div>
+
+    <div class="account-page">
       <h1>Welcome <?php echo $_SESSION['username']; ?></h1>
       <br>
+      
+      <button class="btn">
+        <a href="logout.php" class="btn btn-danger">Logout</a>
+      </button>
+    </div>
   </body>
 <footer>Copyright &copy; COP4710<br></footer>
 </html>

@@ -1,69 +1,80 @@
-<?php 
+<?php
 
 session_start();
 
-require_once "server.php"; 
- 
+require_once "server.php";
+
  // Check if the user is already logged in, if yes then redirect him to welcome page
- if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
+ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
  {
     echo ' <meta http-equiv="refresh" content="0;url=account.php">';
      exit;
  }
 
 // Define variables and initialize with empty values
-$username = ""; 
+$username = "";
 $password = "";
-$verified_user = false; 
-$username_err = ""; 
+$username_err = "";
 $password_err = "";
- 
+
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
- 
+
     // Check if username is empty
     if(empty($_POST["username"]))
     {
         $username_err = "Please enter username.";
-    } 
+    }
     else
     {
         $username = mysqli_real_escape_string($db, $_POST['username']);
     }
-    
+
    // Check if username is empty
-    if(empty($_POST["password1"]))
+    if(empty($_POST["password"]))
     {
-      $username_err = "Please enter password.";
-    } 
+      $password_err = "Please enter password.";
+    }
     else
     {
-      $password1 = mysqli_real_escape_string($db, $_POST['password1']);
-      $password = md5($password1);
+      $password = mysqli_real_escape_string($db, $_POST['password']);
     }
-    
+
     // Validate credentials
     if(empty($username_err) && empty($password_err))
     {
-
-        $user_login = "SELECT username, pass, verified FROM users WHERE username ='$username' and pass='$password'";
-        $user_found = mysqli_query($db, $user_login); 
-        if($user_found['verified'] != '1')
+        $user_login = "SELECT username, pass, verified FROM user WHERE username ='$username'";
+        $user_found_query = mysqli_query($db, $user_login);
+        $user_found = mysqli_num_rows($user_found_query);
+        $user_found_array = mysqli_fetch_assoc($user_found_query);
+        if($user_found > 0)
         {
+          if(password_verify($password, $user_found_array['pass']))
+          {
+            if($user_found_array['verified'] == 0)
+            {
               ?><p>Please check your email and verify your account. </p><?php
                 echo ' <meta http-equiv="refresh" content="4;url=login.php">';
-        }
-        elseif ($user_found)
-          {
-            session_start(); 
-            // Store data in session variables
-            $_SESSION["loggedin"] = true;
-            $_SESSION["username"] = $username;                       
-            
-            // Redirect user to welcome page
-            echo ' <meta http-equiv="refresh" content="0;url=account.php">';
+            }
+            else
+            {
+              session_start();
+              // Store data in session variables
+              $_SESSION['loggedin'] = true;
+              $_SESSION['username'] = $username;
+
+              // Redirect user to welcome page
+              echo ' <meta http-equiv="refresh" content="0;url=account.php">';
+            }
           }
+          else
+          {
+            $_SESSION['password'] = $password;
+            $_SESSION['hash'] = $user_found_array['pass'];
+            $password_err = "Password incorrect.";
+          }
+        }
         else
         {
             ?><p>No user found. Would you like to <a href="registration.php">register an account?</a></p><?php
@@ -83,7 +94,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
     <link rel="stylesheet" href="./Style.css" type="text/css">
 
-      <title>Current User</title>
+      <title>Login</title>
 
   </head>
 
@@ -117,75 +128,58 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     </div>
   </div>
 
-    <div class="register-page">
+    <div class="login-page">
 
+      <div class="login">
       <h1>Login</h1>
 
         <form method="post">
 
           <fieldset class="field">
 
-            <div class="form-group">
-              <img
+            <img
               src="user.png"
               alt=""
               height="180"
               class="user-img"
               >
 
+            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+
+              
+
               <br>
 
               <label>Username:</label>
+            <br>
+            <input type="text" class="form-control" value="<?php echo $username; ?>" name="username" placeholder="Enter your username."/>
+            <br>
+            <span class="help-block"><?php echo $username_err; ?></span>
+          </div>
 
-              <br>
+          <br>
 
-              <input
+          <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+            <label>Password:</label>
+            <br>
+            <input type="password" class="form-control" value="<?php echo $password; ?>" name="password" placeholder="Enter your password."/>
+            <br>
+            <span class="help-block"><?php echo $password_err; ?></span>
+          </div>
 
-                type="text"
+          <br>
 
-                class="input" name="username"
-
-                placeholder="Enter your first name"
-
-              />
-
-              <br>
-
-            </div>
-
-            <div class="form-group">
-
-              <label>Password:</label>
-
-              <br>
-
-              <input
-
-                type="password"
-                class="input" name="password1"
-                placeholder="Password"
-
-              />
-
-              <br>
-
-            </div>
-
-            <div class="button">
-
-              <input
-                type="submit"
-                class="submit"
-                value="Login"
-              />
-
-            </div>
+          <div class="button">
+            <input type="submit" class="submit" value="Login"/>
+          </div>
 
           </fieldset>
 
         </form>
 
         <p>Not a user? <a href="registration.php">Create an Account here</a></p>
+
+      </div>
 
       </div>
 
