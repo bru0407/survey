@@ -1,12 +1,7 @@
 <?php
 session_start();
  
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
-{
-    echo ' <meta http-equiv="refresh" content="0;url=login.php">';
-    exit;
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -48,11 +43,63 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true)
     <div class="account-page">
       <h1>Welcome <?php echo $_SESSION['username']; ?></h1>
       <br>
+
+      <div class="form-group">
+        <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names..">
+
+        <table id="myTable">
+          <tr class="header">
+            <th class="account-top" style="width:60%;">Name</th>
+            <th class="account-top" style="width:40%;">Country</th>
+          </tr>
+          <tr>
+            <td>Alfreds Futterkiste</td>
+            <td>Germany</td>
+          </tr>
+          <tr>
+            <td>Berglunds snabbkop</td>
+            <td>Sweden</td>
+          </tr>
+          <tr>
+            <td>Island Trading</td>
+            <td>UK</td>
+          </tr>
+          <tr>
+            <td>Koniglich Essen</td>
+            <td>Germany</td>
+          </tr>
+        </table>
+      </div>
       
       <button class="btn">
         <a href="logout.php" class="btn btn-danger">Logout</a>
       </button>
     </div>
+
+    <script>
+      function search() {
+        // Declare variables 
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          } 
+        }
+      }
+    </script>
+
   </body>
 <footer>Copyright &copy; COP4710<br></footer>
 </html>

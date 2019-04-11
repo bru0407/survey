@@ -110,6 +110,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     <link rel="stylesheet" href="./style.css" type="text/css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
       function countChar(val) {
@@ -169,7 +170,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             <div class="form-group  <?php echo (!empty($desc_err)) ? 'has-error' : ''; ?>">
               <label>Survey Description:</label>
               <br>
-              <textarea type="text" class="textbox" name="survey_desc" maxlength="500" rows="10" cols="50" onkeyup="countChar(this)" placeholder="Enter survey description." value="<?php echo $survey_desc; ?>"></textarea>
+              <textarea type="date" class="textbox" name="survey_desc" maxlength="500" rows="10" cols="50" onkeyup="countChar(this)" placeholder="Enter survey description." value="<?php echo $survey_desc; ?>"></textarea>
               <div id="charNum" class="charNum"></div>
               <br>
             <span class="help-block"><?php echo $desc_err; ?></span>
@@ -180,7 +181,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
             <div class="form-group <?php echo (!empty($start_err)) ? 'has-error' : ''; ?>">
               <label>Starting Date:</label>
-              <input type="date" id="survey_start" name="start" placeholder="Enter survey starting date." value="<?php echo $survey_start; ?>">
+              <input type="date" class="datepicker" id="start" name="start" placeholder="Enter survey starting date." value="<?php echo $survey_start; ?>">
             </div>
             <br>
             <span class="help-block"><?php echo $start_err; ?></span>
@@ -189,7 +190,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
             <div class="form-group <?php echo (!empty($end_err)) ? 'has-error' : ''; ?>">
               <label>Ending Date:</label>
-              <input type="date" id="survey_end" name="end" placeholder="Enter survey ending date." value="<?php echo $survey_end; ?>">
+              <input type="text" class="datepicker" id="end" name="end" placeholder="Enter survey ending date." value="<?php echo $survey_end; ?>">
             </div>
             <br>
             <span class="help-block"><?php echo $end_err; ?></span>
@@ -206,8 +207,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                         type="text"
                         name="name[]"
                         placeholder="Enter 1-5 type question."
-                        class="type1-1"
-                        id="type1-1"
+                        class="type11"
+                        id="type11"
                       />
                     </td>
                     <td>
@@ -265,7 +266,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
       var i=1;
       $('#add1').click(function(){
            i++;
-           $('#type1').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter 1-5 type question." class="type1-2" id="type1-2"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+           $('#type1').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter 1-5 type question." class="type12" id="type12"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
       });
 
       $('#add2').click(function(){
@@ -280,12 +281,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 </script>
 <script>
   $( function() {
-    $( "#survey_start" ).datepicker({dateFormat: 'yy-mm-dd'});
-      $start = strtotime($_POST["start_date"]);
-      $start = date('Y-m-d H:i:s', $start); //okay i'm losing my mind nothing in these dates is saving
-    $( "#survey_end" ).datepicker({dateFormat: 'yy-mm-dd'});
-      $end = strtotime($_POST["end_date"]);
-      $end = date('Y-m-d H:i:s', $end); //saw someone say that it's bc it needs a .val() at the end to save it?? idk i'm going bananas
+    $( ".datepicker" ).datepicker({dateFormat: 'yy-mm-dd'});
+    {
+      $start = strtotime($_POST["start_date"]); 
+    }
   } );
 </script>
 
