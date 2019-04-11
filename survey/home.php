@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="./Style.css" type="text/css">
+  <link rel="stylesheet" href="./style.css" type="text/css">
   <title>Home Page</title>
 </head>
 <body>
@@ -24,10 +24,10 @@
           <div class="dropdown-content">
             <?php if (empty($_SESSION['loggedin']) || !isset($_SESSION['loggedin'])) { ?>
               <a href="registration.php">Register</a>
-              <a href="Login.php">Login</a>
+              <a href="login.php">Login</a>
               <?php } else { ?>
               <a href="account.php">Account</a>
-              <a href="CreateSurvey.php">Create Survey</a>
+              <a href="createsurvey.php">Create Survey</a>
               <a href="logout.php">Logout</a>
               <?php } ?>
           </div>
@@ -49,9 +49,9 @@
       >
       <button class="btn">
         <?php if (empty($_SESSION['loggedin']) || !isset($_SESSION['loggedin'])) { ?>
-            <a href="Login.php">Start Here</a>
+            <a href="login.php">Start Here</a>
         <?php } else { ?>
-            <a href="CreateSurvey.php">Start Here</a>
+            <a href="createsurvey.php">Start Here</a>
         <?php } ?>
       </button>
   </div>
@@ -60,13 +60,13 @@
     <h1>Acknowledgements</h1> 
     <div class="column">
       <img 
-        src="https://www.svgrepo.com/show/49676/climbing.svg" 
+        src="https://cdn0.iconfinder.com/data/icons/education-circular-2/90/92-512.png" 
         alt="" 
         class="award"
         width="100"
         height="auto"
       >
-      <h2>Rising</h2>
+      <h2>A+</h2>
       <h2>Award</h2>
     </div>
     <div class="column">

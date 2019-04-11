@@ -32,7 +32,7 @@
             $subject = "You've been invited to take a survey!";
             $body = '
 
-            Over at SurveyMaster, where great surveys are made, you have been invited to participate in a survey.
+            Over at SurveyMaster, home of award winning surveys, you have been invited to participate in a survey.
             To take the survey, click the link below.
             <a href="localhost/survey/survey.php?survey_url='.$survey_url.'&responder='.$responder.'">
             localhost/survey/survey.php?survey_url='.$survey_url.'&responder='.$responder.'</a>
@@ -64,7 +64,7 @@
 <html lang="en">
     <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./Style.css" type="text/css">
+    <link rel="stylesheet" href="./style.css" type="text/css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <title>Send Out Survey</title>
   </head>
@@ -97,93 +97,187 @@
     </div>
   </div>
         <div class="createsurvey-page">
-          <h1>Recipients <?php echo $wrong, $email1; ?></h1>
+          <h1>Add Recipients</h1>
           <fieldset class="create">
+            <div class="recipients">
             <div class="form-group">
                 <label>Recipient's Emails:</label>
+                <div class="email-icon">
+                  <img 
+                    src="https://image.flaticon.com/icons/svg/129/129481.svg" 
+                    alt="" 
+                    class="email-icon"
+                    width="90"
+                    height="auto"
+                  >
+                </div>
+
                 <form name="add_name" id="add_name" action="recipients.php" method="post">
 
+                    <br>
 
-                    <div class="table-responsive">  
-                        <table class="table table-bordered" id="dynamic_field">  
-                            <tr>  
-                                <td>
-                                  <input 
-                                    type="text" 
-                                    name="email1" 
-                                    placeholder="Enter your recipient email" 
-                                    class="input" 
-                                    required=""
-                                    value="<?php echo $email1; ?>" 
-                                  />
-                                </td>  
-                                <td>
-                                  <button 
-                                    type="button" 
-                                    name="add" 
-                                    id="add" 
-                                    class="btn btn-success"
-                                    >Add More</button>
-                                </td>  
-                            </tr>  
-                        </table>
-                        <a href ="./home.php">  
-                          <input 
-                            type="button" 
-                            name="submit" 
-                            id="submit" 
-                            class="btn btn-info" 
-                            value="Submit" 
-                          />  
-                      </a>
+                    <div class="input-icon">
+                      <input 
+                        type="text" 
+                        name="email1" 
+                        placeholder="Enter first recipient's email" 
+                        class="input" 
+                        value="<?php echo $email1; ?>" 
+                      />
+                      <i>1:</i>
                     </div>
+
+                    <br>
+
+                    <div class="input-icon input-icon-right">
+                      <input 
+                        type="text" 
+                        name="email1" 
+                        placeholder="Enter second recipient's email" 
+                        class="input"
+                        value="<?php echo $email1; ?>" 
+                      />
+                      <i>2:</i>
+                    </div>
+
+                    <br>
+
+                    <div class="input-icon">
+                      <input 
+                        type="text" 
+                        name="email1" 
+                        placeholder="Enter third recipient's email" 
+                        class="input" 
+                        value="<?php echo $email1; ?>" 
+                      />
+                      <i>3:</i>
+                    </div>
+
+                    <br>
+
+                    <div class="input-icon input-icon-right">
+                      <input 
+                        type="text" 
+                        name="email1" 
+                        placeholder="Enter fourth recipient's email" 
+                        class="input" 
+                        value="<?php echo $email1; ?>" 
+                      />
+                      <i>4:</i>
+                    </div>
+
+                    <br>
+
+                    <div class="input-icon">
+                      <input 
+                        type="text" 
+                        name="email1" 
+                        placeholder="Enter fifth recipient's email" 
+                        class="input" 
+                        value="<?php echo $email1; ?>" 
+                      />
+                      <i>5:</i>
+                    </div>
+
+                    <br>
+
+                    <div class="input-icon input-icon-right">
+                      <input 
+                        type="text" 
+                        name="email1" 
+                        placeholder="Enter sixth recipient's email" 
+                        class="input"
+                        value="<?php echo $email1; ?>" 
+                      />
+                      <i>6:</i>
+                    </div>
+
+                    <br>
+
+                    <div class="input-icon">
+                      <input 
+                        type="text" 
+                        name="email1" 
+                        placeholder="Enter seventh recipient's email" 
+                        class="input" 
+                        value="<?php echo $email1; ?>" 
+                      />
+                      <i>7:</i>
+                    </div>
+
+                    <br>
+
+                    <div class="input-icon input-icon-right">
+                      <input 
+                        type="text" 
+                        name="email1" 
+                        placeholder="Enter eigth recipient's email" 
+                        class="input"
+                        value="<?php echo $email1; ?>" 
+                      />
+                      <i>8:</i>
+                    </div>
+
+                    <br>
+
+                    <div class="input-icon">
+                      <input 
+                        type="text" 
+                        name="email1" 
+                        placeholder="Enter ninth recipient's email" 
+                        class="input"
+                        value="<?php echo $email1; ?>" 
+                      />
+                      <i>9:</i>
+                    </div>
+
+                    <br>
+
+                    <div class="input-icon input-icon-right">
+                      <input 
+                        type="text" 
+                        name="email1" 
+                        placeholder="Enter tenth recipient's email" 
+                        class="input" 
+                        value="<?php echo $email1; ?>" 
+                      />
+                      <i>10:</i>
+                    </div>
+
+                    <br>
+
+                    <div class="recipient-submit">
+                     <input
+                            type="submit"
+                            name="submit"
+                            id="submit"
+                            class="btn btn-info"
+                            value="Submit"
+                      />  
+                    </div>    
 
 
                  </form>  
             </div> 
+          </div>
         </fieldset>
     </div>
 
-
-<script type="text/javascript">
-    $(document).ready(function(){      
-      var postURL = "./addmore.php";
-      var i=1;  
-
-
-      $('#add').click(function(){  
-           i++;  
-           $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="email1" placeholder="Enter your recipient email" class="input" value="<?php echo $email1; ?>" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
-      });
-
-
-      $(document).on('click', '.btn_remove', function(){  
-           var button_id = $(this).attr("id");   
-           $('#row'+button_id+'').remove();  
-      });  
-
-
-      $('#submit').click(function(){            
-           $.ajax({  
-                url:postURL,  
-                method:"POST",  
-                data:$('#add_name').serialize(),
+    <script type="text/javascript">
+      $('#submit').click(function(){
+           $.ajax({
+                url:postURL,
                 type:'json',
-                success:function(data)  
+                success:function(data)
                 {
                     i=1;
                     $('.dynamic-added').remove();
                     $('#add_name')[0].reset();
                     alert('Succesfully created survey.');
-                }  
-           });  
-      });
-
-
-    });  
+                }
+           });
+    });
 </script>
-
-
 
   </body>
 <footer>Copyright &copy; COP4710<br></footer>
