@@ -45,35 +45,42 @@ session_start();
       <br>
 
       <div class="form-group">
-        <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names..">
+        <input type="text" id="myInput" onkeyup="search()" placeholder="Search for survey titles...">
+
+        <br>
+        <br>
 
         <table id="myTable">
-          <tr class="header">
-            <th class="account-top" style="width:60%;">Name</th>
-            <th class="account-top" style="width:40%;">Country</th>
+          <tr class="header1">
+            <th class="account-top" style="width:60%; text-align: center;">Survey Title</th>
+            <th class="account-top" style="width:40%; text-align: center;">Status</th>
           </tr>
           <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Germany</td>
+            <td>How do you like Database?</td>
+            <td style="text-align: center; background-color: green; color: white;">Open</td>
           </tr>
           <tr>
-            <td>Berglunds snabbkop</td>
-            <td>Sweden</td>
+            <td>What animal are you?</td>
+            <td style="text-align: center; background-color: red; color: white;">Closed</td>
           </tr>
           <tr>
-            <td>Island Trading</td>
-            <td>UK</td>
+            <td>Who's still up?</td>
+            <td style="text-align: center; background-color: red; color: white;">Closed</td>
           </tr>
           <tr>
-            <td>Koniglich Essen</td>
-            <td>Germany</td>
+            <td>Is anyone out there?</td>
+            <td style="text-align: center; background-color: red; color: white;">Closed</td>
           </tr>
         </table>
       </div>
+
+      <br>
       
-      <button class="btn">
-        <a href="logout.php" class="btn btn-danger">Logout</a>
-      </button>
+      <div class="red-btn">
+        <button class="btn">
+          <a href="logout.php" class="btn btn-danger">Logout</a>
+        </button>
+      </div>
     </div>
 
     <script>
@@ -98,6 +105,17 @@ session_start();
           } 
         }
       }
+    </script>
+
+    <script>
+    function getProperColor($status)
+    {
+      // Need to update if statement to check if value is open, otherwise its closed thus red
+        if ($var > 0)
+            return '#00FF00';
+        else
+            return = '#FF0000';
+    }
     </script>
 
   </body>

@@ -506,14 +506,22 @@ footer
   text-decoration: none;
 }
 
+.red-btn
+{
+  padding-top: 80px;
+}
+
 #myInput {
-  background-position: 10px 12px;
+  background-image: url('https://image.flaticon.com/icons/svg/751/751463.svg');
+  background-size: 30px;
+  background-position: 9px 7px; 
   background-repeat: no-repeat; 
-  width: 100%; 
+  width: 90%;
+  max-width: 100%; 
   font-size: 16px; 
-  padding: 12px 20px 12px 40px;
+  padding: 12px 20px 12px 40px; 
   border: 1px solid #ddd;
-  margin-bottom: 12px;
+  margin-bottom: 12px; 
 }
 
 #myTable {
@@ -524,9 +532,9 @@ footer
   font-size: 18px; 
 }
 
-.account-top
+#myTable th
 {
-  width: 100%;
+  background-color: #f1f1f1;
 }
 
 #myTable th, #myTable td {
