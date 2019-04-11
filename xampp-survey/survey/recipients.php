@@ -71,7 +71,7 @@ function makeID()
     <div class="inner_header">
       <div class="logo_container">
         <a href="/survey/home.php">
-          <img src="https://cdn.pixabay.com/photo/2017/05/15/23/48/survey-2316468_1280.png" alt="" width="50" height="50">
+          <img src="https://image.flaticon.com/icons/svg/1484/1484918.svg" alt="" width="50" height="50">
            <h1>
             SurveyMaster
           </h1>
@@ -127,14 +127,13 @@ function makeID()
                     </div>
 
                     <br>
-<!--
+
                     <div class="input-icon input-icon-right">
                       <input
                         type="text"
                         name="email2"
                         placeholder="Enter second recipient's email"
                         class="input"
-                        value="<?php echo $email2; ?>"
                       />
                       <i>2:</i>
                     </div>
@@ -147,7 +146,6 @@ function makeID()
                         name="email3"
                         placeholder="Enter third recipient's email"
                         class="input"
-                        value="<?php echo $email3; ?>"
                       />
                       <i>3:</i>
                     </div>
@@ -160,7 +158,6 @@ function makeID()
                         name="email4"
                         placeholder="Enter fourth recipient's email"
                         class="input"
-                        value="<?php echo $email4; ?>"
                       />
                       <i>4:</i>
                     </div>
@@ -173,7 +170,6 @@ function makeID()
                         name="email5"
                         placeholder="Enter fifth recipient's email"
                         class="input"
-                        value="<?php echo $email5; ?>"
                       />
                       <i>5:</i>
                     </div>
@@ -186,7 +182,6 @@ function makeID()
                         name="email6"
                         placeholder="Enter sixth recipient's email"
                         class="input"
-                        value="<?php echo $email6; ?>"
                       />
                       <i>6:</i>
                     </div>
@@ -199,7 +194,6 @@ function makeID()
                         name="email7"
                         placeholder="Enter seventh recipient's email"
                         class="input"
-                        value="<?php echo $email7; ?>"
                       />
                       <i>7:</i>
                     </div>
@@ -212,7 +206,6 @@ function makeID()
                         name="email8"
                         placeholder="Enter eigth recipient's email"
                         class="input"
-                        value="<?php echo $email8; ?>"
                       />
                       <i>8:</i>
                     </div>
@@ -225,7 +218,6 @@ function makeID()
                         name="email9"
                         placeholder="Enter ninth recipient's email"
                         class="input"
-                        value="<?php echo $email9; ?>"
                       />
                       <i>9:</i>
                     </div>
@@ -238,7 +230,6 @@ function makeID()
                         name="email10"
                         placeholder="Enter tenth recipient's email"
                         class="input"
-                        value="<?php echo $email10; ?>"
                       />
                       <i>10:</i>
                     </div> -->
@@ -261,22 +252,6 @@ function makeID()
           </div>
         </fieldset>
     </div>
-
-    <!-- <script type="text/javascript">
-      $('#submit').click(function(){
-           $.ajax({
-                url:postURL,
-                type:'json',
-                success:function(data)
-                {
-                    i=1;
-                    $('.dynamic-added').remove();
-                    $('#add_name')[0].reset();
-                    alert('Succesfully created survey.');
-                }
-           });
-    });
-</script> -->
 
   </body>
 <footer>Copyright &copy; COP4710<br></footer>
