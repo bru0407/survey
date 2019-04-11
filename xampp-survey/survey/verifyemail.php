@@ -79,4 +79,6 @@
   </div>
     <!-- end wrap div -->
 </body>
+
+<footer>Copyright &copy; COP4710 Team 4<br></footer>
 </html>

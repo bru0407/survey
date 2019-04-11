@@ -1,4 +1,10 @@
 <?php
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true)
+{
+    echo ' <meta http-equiv="refresh" content="0;url=login.php">';
+    exit;
+}
   require_once "server.php";
   session_start();
 
@@ -254,5 +260,5 @@ function makeID()
     </div>
 
   </body>
-<footer>Copyright &copy; COP4710<br></footer>
+<footer>Copyright &copy; COP4710 Team 4<br></footer>
 </html>

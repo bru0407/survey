@@ -176,7 +176,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     <br>
 
     <div class="slidecontainer">
-      <input type="range" min="1" max="5" step="1" value="<?php echo $type11ans ?>" id="type11ans" name="type11ans" onchange='document.getElementById("bar1").value = "Value = " + document.getElementById("q1").value;'/>
+      <input type="range" min="1" max="5" step="1" value="3" id="q1" name="passengers" onchange='document.getElementById("bar1").value = "Value = " + document.getElementById("q1").value;'/>
       <input type="show" name="bar1" id="bar1" value="Value = 3" disabled />
     </div>
 
@@ -198,7 +198,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     <br>
 
     <div class="slidecontainer">
-      <input type="range" min="1" max="5" step="1" value="<?php echo $type12ans ?>" id="type12ans" name="type12ans" onchange='document.getElementById("bar2").value = "Value = " + document.getElementById("q2").value;'/>
+      <input type="range" min="1" max="5" step="1" value="3" id="q2" name="passengers" onchange='document.getElementById("bar2").value = "Value = " + document.getElementById("q2").value;'/>
       <input type="show" name="bar2" id="bar2" value="Value = 3" disabled />
     </div>
 
@@ -227,5 +227,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
   </form>
 </div>
 </body>
-<footer>Copyright &copy; COP4710<br>
+<footer>Copyright &copy; COP4710 Team 4<br>
 </footer></html>

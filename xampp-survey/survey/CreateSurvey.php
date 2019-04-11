@@ -282,5 +282,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 </script>
 
   </body>
-<footer>Copyright &copy; COP4710<br></footer>
+<footer>Copyright &copy; COP4710 Team 4<br></footer>
 </html>

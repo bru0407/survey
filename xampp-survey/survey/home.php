@@ -95,6 +95,6 @@
 
 </div>
 
-<footer>Copyright &copy; COP4710<br>
+<footer>Copyright &copy; COP4710 Team 4<br>
 </footer>
 </html>
