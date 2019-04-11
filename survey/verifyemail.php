@@ -34,9 +34,20 @@
       </ul>
     </div>
   </div>
-     
+  
+  <div class="verify-php">   
     <!-- start wrap div -->   
-    <div id="wrap">
+    <div style="text-align: center; padding-top: 10px;" class="form-group">
+        <img 
+          src="https://image.flaticon.com/icons/svg/1672/1672443.svg" 
+          alt="" 
+          width="250" 
+          height="auto"
+        >
+
+        <br>
+        <br>
+
         <!-- start PHP code -->
         <?php
          if(isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['verify_hash']) && !empty($_GET['verify_hash']))
@@ -65,6 +76,8 @@
  
          
     </div>
+
+  </div>
     <!-- end wrap div --> 
 </body>
 </html>
