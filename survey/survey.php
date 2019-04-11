@@ -1,23 +1,43 @@
 <?php
-
-include('server.php');
-
-$survey_url = "";
-$responder = "";
-
-if(isset($_GET['url']) && isset($_GET['responder']))
-{
-  $survey_url = mysqli_real_escape_string($db, $_GET['url']);
-  $responder = mysqli_real_escape_string($db, $_GET['responder']);
-  $check_url = "SELECT survey_url FROM surveys WHERE survey_url='$survey_url'";
-  $yes_url = mysqli_query($db, $check_url);
-  $match  = mysqli_num_rows($yes_url);
-  if($match > 0)
+  include('server.php');
+  $survey_url = "";
+  $response_id = "";
+  $type11q = "";
+  $type12q = "";
+  $type2q = "";
+  $type11ans = 0;
+  $type12ans = 0;
+  $type2ans = "";
+  $type11_err = "";
+  $type12_err = "";
+  $type2_err = "";
+  if(isset($_GET['url']) && isset($_GET['response_id']))
   {
-    $new_table = "INSERT INTO answers (survey_url, responder) VALUES ('$survey_url', '$responder')";
-    $new_answer = mysqli_query($db, $new_table);
+    $survey_url = mysqli_real_escape_string($db, $_GET['url']);
+    $response_id = mysqli_real_escape_string($db, $_GET['response_id']);
+    $check_url = "SELECT survey_url FROM surveys WHERE survey_url='$survey_url'";
+    $yes_url = mysqli_query($db, $check_url);
+    $survey_info = mysqli_fetch_assoc($yes_url);
+    $match  = mysqli_num_rows($yes_url);
+    if($match > 0)
+    {
+      $survey_title = $survey_info['survey_title'];
+      $survey_desc = $survey_info['survey_desc'];
+      $type11table = "SELECT question FROM type11 WHERE survey_url='$survey_url'";
+      $type11table_entries = mysqli_fetch_assoc($type11table);
+      $type11q = $type11table_entries['question'];
+      $type12table = "SELECT question FROM type12 WHERE survey_url='$survey_url'";
+      $type12table_entries = mysqli_fetch_assoc($type12table);
+      $yes_type12 = mysqli_num_rows($type12table_entries);
+      if($yes_type12 > 0)
+      {
+        $type12q = $type12table_entries['question'];
+      }
+    }
   }
-}
+  else
+  {
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +65,7 @@ if(isset($_GET['url']) && isset($_GET['responder']))
     <div class="inner_header">
       <div class="logo_container">
         <a href="/survey/home.php">
-          <img src="https://cdn.pixabay.com/photo/2017/05/15/23/48/survey-2316468_1280.png" alt="" width="50" height="50">
+          <img src="https://image.flaticon.com/icons/svg/1484/1484918.svg" alt="" width="50" height="50">
            <h1>
             SurveyMaster
           </h1>
@@ -72,16 +92,16 @@ if(isset($_GET['url']) && isset($_GET['responder']))
 <div class="survey-page">
 
 
-  <h1>Survey Title</h1>
+  <h1><?php echo $survey_title ?></h1>
 
-  <p>Survey Description</p>
+  <p><?php echo $survey_desc ?></p>
   
   <br>
   <form class="box">
 
   <div class="form-group">
 
-    <h2>Question 1</h2>
+    <h2>1: <?php echo $type11q ?></h2>
     <p>
       Answer this question by selection a value from 1 - 5.
     </p>
@@ -103,7 +123,7 @@ if(isset($_GET['url']) && isset($_GET['responder']))
 
   <div class="form-group">
 
-    <h2>Question 2</h2>
+    <h2>2: <?php echo $type12q ?></h2>
     <p>
       Answer this question by selection a value from 1 - 5.
     </p>
@@ -124,7 +144,7 @@ if(isset($_GET['url']) && isset($_GET['responder']))
   <br>
 
   <div class="form-group">
-    <h2>Question 3</h2>
+    <h2>3: <?php echo $type2q ?></h2>
     <p>
       Answer this question by writing up 200 characters. 
     </p>

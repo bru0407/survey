@@ -33,6 +33,17 @@ input[type=text]
   padding: 5px;
 }
 
+input[type=int]
+{
+  border:2px solid black;
+  border-radius:4px;
+
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
 input[type=email]
 {
   border:2px solid black;
@@ -538,7 +549,7 @@ footer
 }
 
 #myTable th, #myTable td {
-  text-align: left; 
+  text-align: center; 
   padding: 12px; 
 }
 

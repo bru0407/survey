@@ -1,6 +1,12 @@
 <?php
 session_start();
  
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true)
+{
+    echo ' <meta http-equiv="refresh" content="0;url=login.php">';
+    exit;
+}
 
 ?>
 
@@ -16,7 +22,7 @@ session_start();
     <div class="inner_header">
       <div class="logo_container">
         <a href="/survey/home.php">
-          <img src="https://cdn.pixabay.com/photo/2017/05/15/23/48/survey-2316468_1280.png" alt="" width="50" height="50">
+          <img src="https://image.flaticon.com/icons/svg/1484/1484918.svg" alt="" width="50" height="50">
            <h1>
             SurveyMaster
           </h1>
@@ -52,25 +58,41 @@ session_start();
 
         <table id="myTable">
           <tr class="header1">
-            <th class="account-top" style="width:60%; text-align: center;">Survey Title</th>
-            <th class="account-top" style="width:40%; text-align: center;">Status</th>
+            <th class="account-top" style="width:25%; text-align: center;">Survey Title</th>
+            <th class="account-top" style="width:35%; text-align: center;">Survey Description</th>
+            <th class="account-top" style="width:20%; text-align: center;">Days Left</th>
+            <th class="account-top" style="width:20%; text-align: center;">Results</th>
           </tr>
-          <tr>
-            <td>How do you like Database?</td>
-            <td style="text-align: center; background-color: green; color: white;">Open</td>
-          </tr>
-          <tr>
-            <td>What animal are you?</td>
-            <td style="text-align: center; background-color: red; color: white;">Closed</td>
-          </tr>
-          <tr>
-            <td>Who's still up?</td>
-            <td style="text-align: center; background-color: red; color: white;">Closed</td>
-          </tr>
-          <tr>
-            <td>Is anyone out there?</td>
-            <td style="text-align: center; background-color: red; color: white;">Closed</td>
-          </tr>
+          
+          <?php
+            $username = $_SESSION['username'];
+            $results_page = "results.php?=";
+            $survey_table = "SELECT * FROM surveys WHERE username ='$username'";
+            $user_surveys = mysqli_query($db, $survey_table);
+            $num_surveys = mysqli_num_rows($user_surveys);
+            //Count the returned rows
+            if ($num_surveys > 0)
+            {
+                while($row = mysqli_fetch_array($user_surveys))
+                {
+                     $survey_title = $row['survey_title'];
+                     $survey_desc = $row['survey_desc'];
+                     $survey_due = $row['due_date'];
+                     $survey_url = $row['survey_url'];
+                     $survey_results = $results_page.$survey_url;
+                     echo
+                     "<tr>
+                     <td>" . $survey_title . "</td>
+                     <td>" . $survey_desc . "</td>
+                     <td>" . $survey_due . "</td>
+                     <td><a href=\"" . $survey_results . "\">Results</a></td>
+                     </tr>";
+                 }
+            } else {
+                 echo "No surveys found";
+            }
+          ?>
+
         </table>
       </div>
 

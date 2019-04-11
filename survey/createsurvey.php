@@ -1,31 +1,36 @@
 <?php
-
 session_start();
+
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true)
+{
+    echo ' <meta http-equiv="refresh" content="0;url=login.php">';
+    exit;
+}
+
 // Include config file
 require_once "server.php";
-
 if(isset($_GET['logout']))
 {
   session_destroy();
   unset($_SESSION['username']);
   header("location: /survey/login.php");
 }
-
 // Define variables and initialize with empty values
 $username = $_SESSION['username'];
 $survey_desc = "";
 $survey_title = "";
-$survey_start = "";
-$survey_end = "";
-$type1s = ["", "", "", "", ""];
-$type2s = ["", "", "", "", ""];
+$due_date = "";
+$type11 = "";
+$type12 = "";
+$type2 = "";
 $title_err = "";
 $desc_err = "";
 $survey_url = "";
-$start_err = "";
-$end_err = "";
-
-
+$due_err = "";
+$type11_err = "";
+$type12_err = "";
+$type2_err = "";
 function makeURL()
 {
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -39,7 +44,6 @@ function makeURL()
     }
     return $key;
 }
-
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -52,12 +56,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
   {
     $survey_title = mysqli_real_escape_string($db, $_POST['survey_title']);
   }
-
   if(!empty($_POST["survey_desc"]))
   {
     $survey_desc = mysqli_real_escape_string($db, $_POST['survey_desc']);
   }
-
   //generate url
   do
   {
@@ -67,38 +69,59 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $url_survey = mysqli_fetch_assoc($url_check_result);
   } while($url_survey['survey_url'] == $random_url);
   $survey_url = $random_url;
-
-  if(empty($_POST["survey_start"]))
+  if(empty($_POST["due_date"]))
   {
-    $start_error = "You must enter a start date.";
+    $due_err = "You must enter for how many days the survey will be open.";
   }
   else
   {
-    $survey_start = $_POST['survey_start'];
-    echo $survey_start;
+    $due_date = $_POST['due_date'];
+    if($due_date > 10 || $due_date < 0)
+    {
+      $due_err = "You must enter an integer between 0 and 10.";
+      $due_date = "";
+    }
   }
-
-  if(empty($_POST["survey_end"]))
+  if(empty($_POST["type11"]))
   {
-    $end_error = "You must enter an end date.";
+    $type11_err = "You must enter a first question of type 1.";
   }
   else
   {
-    $survey_end = $_POST['survey_end'];
+    $type11 = mysqli_real_escape_string($db, $_POST['type11']);
   }
-
-  if(!empty($survey_url)) //and something about question count variables here
+  if(empty($_POST["type12"]))
   {
-    $insert_survey = "INSERT INTO surveys (username, survey_url, survey_title, survey_desc) VALUES ('$username',
-      '$survey_url', '$survey_title', '$survey_desc')";
+    $type12_err = "You must enter a second question of type 1.";
+  }
+  else
+  {
+    $type12 = mysqli_real_escape_string($db, $_POST['type12']);
+  }
+  if(empty($_POST["type2"]))
+  {
+    $type2_err = "You must enter a type 2 question.";
+  }
+  else
+  {
+    $type2 = mysqli_real_escape_string($db, $_POST['type2']);
+  }
+  if(!empty($survey_url) && !empty($due_date) && !empty($type11) && !empty($type12) && !empty($type2))
+  {
+    $insert_survey = "INSERT INTO surveys (username, survey_url, survey_title, survey_desc, due_date) VALUES ('$username',
+      '$survey_url', '$survey_title', '$survey_desc', '$due_date')";
     mysqli_query($db, $insert_survey);
+    $insert_type11 = "INSERT INTO type11 (survey_url, question) VALUES ('$survey_url', '$type11')";
+    mysqli_query($db, $insert_type11);
+    $insert_type12 = "INSERT INTO type12 (survey_url, question) VALUES ('$survey_url', '$type12')";
+    mysqli_query($db, $insert_type12);
+    $insert_type2 = "INSERT INTO type2 (survey_url, question) VALUES ('$survey_url', '$type2')";
+    mysqli_query($db, $insert_type2);
     $_SESSION['survey_url'] = $survey_url;
     $_SESSION['created'] = "Survey created successfully.";
-
     echo ' <meta http-equiv="refresh" content="0;url=recipients.php">';
   }
 }
-
   // Close connection
   mysqli_close($db);
 ?>
@@ -129,7 +152,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     <div class="inner_header">
       <div class="logo_container">
         <a href="/survey/home.php">
-          <img src="https://cdn.pixabay.com/photo/2017/05/15/23/48/survey-2316468_1280.png" alt="" width="50" height="50">
+          <img src="https://image.flaticon.com/icons/svg/1484/1484918.svg" alt="" width="50" height="50">
            <h1>
             SurveyMaster
           </h1>
@@ -179,21 +202,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
             <br>
 
-            <div class="form-group <?php echo (!empty($start_err)) ? 'has-error' : ''; ?>">
-              <label>Starting Date:</label>
-              <input type="date" class="datepicker" id="start" name="start" placeholder="Enter survey starting date." value="<?php echo $survey_start; ?>">
+            <div class="form-group <?php echo (!empty($due_err)) ? 'has-error' : ''; ?>">
+            <br>
+              <label>Period Length:</label>
+              <br>
+              <input type="int" class="due_date" id="due_date" name="due_date" placeholder="Enter how many days survey is open (0-10)." value="<?php echo $due_date; ?>">
             </div>
-            <br>
-            <span class="help-block"><?php echo $start_err; ?></span>
-
-            <br>
-
-            <div class="form-group <?php echo (!empty($end_err)) ? 'has-error' : ''; ?>">
-              <label>Ending Date:</label>
-              <input type="text" class="datepicker" id="end" name="end" placeholder="Enter survey ending date." value="<?php echo $survey_end; ?>">
-            </div>
-            <br>
-            <span class="help-block"><?php echo $end_err; ?></span>
+            <span class="help-block"><?php echo $due_err; ?></span>
             <br>
 
             <br>
@@ -267,9 +282,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             <br>
 
             <div class="button">
-              <a href="recipients.php">
-                <input type="submit" name="submit" id="submit" class="submit" value="Create Account"/>
-              </a>
+              <input type="submit" name="submit" id="submit" class="submit" value="Create Account"/>
             </div>
           </fieldset>
         </form>
@@ -279,7 +292,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
   $( function() {
     $( ".datepicker" ).datepicker({dateFormat: 'yy-mm-dd'});
     {
-      $start = strtotime($_POST["start_date"]); 
+      
     }
   } );
 </script>

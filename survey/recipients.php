@@ -1,63 +1,65 @@
 <?php
+
+  // Check if the user is logged in, if not then redirect him to login page
+  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true)
+  {
+      echo ' <meta http-equiv="refresh" content="0;url=login.php">';
+      exit;
+  }
+
   require_once "server.php";
-
   session_start();
-
   $email1 = "";
-  $wrong = "no";
+  $response_id = "";
+function makeID()
+{
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    while (1)
+    {
+        $key = '';
+        for ($i = 0; $i < 10; $i++) {
+            $key .= substr($chars, (random_int(0, 255) % (strlen($chars))), 1);
+        }
+        break;
+    }
+    return $key;
+}
   if(isset($_SESSION['survey_url']) && !empty($_SESSION['survey_url']))
   {
     //populate email_array
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
-      $wrong = "post";
         $survey_url = $_SESSION['survey_url'];
+        $response_id = makeID();
         $email1 = mysqli_real_escape_string($db, $_POST['email1']);
-        $responder = $email1;
         $find_query = "SELECT * FROM surveys WHERE survey_url='$survey_url'";
         $search = mysqli_query($db, $find_query);
         $match  = mysqli_num_rows($search);
         if($match > 0)
         {
             $wrong = "no it's fine";
-            //inside loop: for each email in email array
+            $sent_invite = "INSERT INTO recipients (survey_url, recipient, response_id) VALUES ('$survey_url', '$email1', '$response_id')";
+            mysqli_query($db, $sent_invite);
             require "Mail.php";
             $from = "surveymasterdevteam@gmail.com";
             $to = $email1;
             $host = "ssl://smtp.gmail.com";
             $port = "465";
-
             $devemail = 'surveymasterdevteam@gmail.com';
             $password = 'devteam!';
             $subject = "You've been invited to take a survey!";
             $body = '
-
             Over at SurveyMaster, home of award winning surveys, you have been invited to participate in a survey.
-            To take the survey, click the link below.
-            <a href="localhost/survey/survey.php?survey_url='.$survey_url.'&responder='.$responder.'">
-            localhost/survey/survey.php?survey_url='.$survey_url.'&responder='.$responder.'</a>
-
+            To take the survey, copy and paste the link below into your browser:
+            localhost/survey/survey.php?survey_url='.$survey_url.'&response_id='.$response_id.'
             ';
-
             $headers = array ('From' => $from, 'To' => $to,'Subject' => $subject);
             $smtp = Mail::factory('smtp', array ('host' => $host, 'port' => $port, 'auth' => true, 'username' => $devemail, 'password' => $password));
             $mail = $smtp->send($to, $headers, $body);
-
-            echo ' <meta http-equiv="refresh" content="0;url=survey.php?survey_url='.$survey_url.'>';
+            //echo ' <meta http-equiv="refresh" content="0;url=survey.php?survey_url='.$survey_url.'>';
         }
-          else
-          {
-            $wrong = "yeah";
-          }
       }
-        else
-        {
-          echo "Why aren't you posting";
-        }
-
     }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +75,7 @@
     <div class="inner_header">
       <div class="logo_container">
         <a href="/survey/home.php">
-          <img src="https://cdn.pixabay.com/photo/2017/05/15/23/48/survey-2316468_1280.png" alt="" width="50" height="50">
+          <img src="https://image.flaticon.com/icons/svg/1484/1484918.svg" alt="" width="50" height="50">
            <h1>
             SurveyMaster
           </h1>
@@ -85,10 +87,10 @@
           <div class="dropdown-content">
             <?php if (empty($_SESSION['loggedin']) || !isset($_SESSION['loggedin'])) { ?>
               <a href="registration.php">Register</a>
-              <a href="Login.php">Login</a>
+              <a href="login.php">Login</a>
               <?php } else { ?>
               <a href="account.php">Account</a>
-              <a href="CreateSurvey.php">Create Survey</a>
+              <a href="createsurvey.php">Create Survey</a>
               <a href="logout.php">Logout</a>
               <?php } ?>
           </div>
@@ -132,10 +134,10 @@
                     <div class="input-icon input-icon-right">
                       <input 
                         type="text" 
-                        name="email1" 
+                        name="email2" 
                         placeholder="Enter second recipient's email" 
                         class="input"
-                        value="<?php echo $email1; ?>" 
+                        value="<?php echo $email2; ?>" 
                       />
                       <i>2:</i>
                     </div>
@@ -145,10 +147,10 @@
                     <div class="input-icon">
                       <input 
                         type="text" 
-                        name="email1" 
+                        name="email3" 
                         placeholder="Enter third recipient's email" 
                         class="input" 
-                        value="<?php echo $email1; ?>" 
+                        value="<?php echo $email3; ?>" 
                       />
                       <i>3:</i>
                     </div>
@@ -158,10 +160,10 @@
                     <div class="input-icon input-icon-right">
                       <input 
                         type="text" 
-                        name="email1" 
+                        name="email4" 
                         placeholder="Enter fourth recipient's email" 
                         class="input" 
-                        value="<?php echo $email1; ?>" 
+                        value="<?php echo $email4; ?>" 
                       />
                       <i>4:</i>
                     </div>
@@ -171,10 +173,10 @@
                     <div class="input-icon">
                       <input 
                         type="text" 
-                        name="email1" 
+                        name="email5" 
                         placeholder="Enter fifth recipient's email" 
                         class="input" 
-                        value="<?php echo $email1; ?>" 
+                        value="<?php echo $email5; ?>" 
                       />
                       <i>5:</i>
                     </div>
@@ -184,10 +186,10 @@
                     <div class="input-icon input-icon-right">
                       <input 
                         type="text" 
-                        name="email1" 
+                        name="email6" 
                         placeholder="Enter sixth recipient's email" 
                         class="input"
-                        value="<?php echo $email1; ?>" 
+                        value="<?php echo $email6; ?>" 
                       />
                       <i>6:</i>
                     </div>
@@ -197,10 +199,10 @@
                     <div class="input-icon">
                       <input 
                         type="text" 
-                        name="email1" 
+                        name="email7" 
                         placeholder="Enter seventh recipient's email" 
                         class="input" 
-                        value="<?php echo $email1; ?>" 
+                        value="<?php echo $email7; ?>" 
                       />
                       <i>7:</i>
                     </div>
@@ -210,10 +212,10 @@
                     <div class="input-icon input-icon-right">
                       <input 
                         type="text" 
-                        name="email1" 
+                        name="email8" 
                         placeholder="Enter eigth recipient's email" 
                         class="input"
-                        value="<?php echo $email1; ?>" 
+                        value="<?php echo $email8; ?>" 
                       />
                       <i>8:</i>
                     </div>
@@ -223,10 +225,10 @@
                     <div class="input-icon">
                       <input 
                         type="text" 
-                        name="email1" 
+                        name="email9" 
                         placeholder="Enter ninth recipient's email" 
                         class="input"
-                        value="<?php echo $email1; ?>" 
+                        value="<?php echo $email9; ?>" 
                       />
                       <i>9:</i>
                     </div>
@@ -236,10 +238,10 @@
                     <div class="input-icon input-icon-right">
                       <input 
                         type="text" 
-                        name="email1" 
+                        name="email10" 
                         placeholder="Enter tenth recipient's email" 
                         class="input" 
-                        value="<?php echo $email1; ?>" 
+                        value="<?php echo $email10; ?>" 
                       />
                       <i>10:</i>
                     </div>
@@ -262,22 +264,6 @@
           </div>
         </fieldset>
     </div>
-
-    <script type="text/javascript">
-      $('#submit').click(function(){
-           $.ajax({
-                url:postURL,
-                type:'json',
-                success:function(data)
-                {
-                    i=1;
-                    $('.dynamic-added').remove();
-                    $('#add_name')[0].reset();
-                    alert('Succesfully created survey.');
-                }
-           });
-    });
-</script>
 
   </body>
 <footer>Copyright &copy; COP4710<br></footer>

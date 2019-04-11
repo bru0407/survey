@@ -144,7 +144,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     <div class="inner_header">
       <div class="logo_container">
         <a href="/survey/home.php">
-          <img src="https://cdn.pixabay.com/photo/2017/05/15/23/48/survey-2316468_1280.png" alt="" width="50" height="50">
+          <img src="https://image.flaticon.com/icons/svg/1484/1484918.svg" alt="" width="50" height="50">
            <h1>
             SurveyMaster
           </h1>
