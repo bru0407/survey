@@ -132,8 +132,8 @@ if(isset($_GET['url']) && isset($_GET['responder']))
     <br>
     <br>
     
-    <textarea maxlength="200" onkeyup="countChar(this)"rows="10" cols="50">
-    </textarea><br>
+    <textarea type="text" maxlength="200" class="textbox" rows="10" cols="50" onkeyup="countChar(this)" value="<?php echo $survey_desc; ?>"></textarea>
+    <br>
     <div id="charNum" class="charNum"></div>
   </div>
   <br>

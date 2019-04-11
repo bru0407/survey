@@ -153,7 +153,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
   </div>
         <div class="createsurvey-page">
           <h1>Create Your Survey</h1>
-          <h1> OMFG  <?php echo $survey_start, $survey_end ?> </h1>
           <form action="createsurvey.php" method="post">
           <fieldset class="create">
             <br>
@@ -181,7 +180,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
             <div class="form-group <?php echo (!empty($start_err)) ? 'has-error' : ''; ?>">
               <label>Starting Date:</label>
-              <input type="text" id="survey_start" name="start" placeholder="Enter survey starting date." value="<?php echo $survey_start; ?>">
+              <input type="date" id="survey_start" name="start" placeholder="Enter survey starting date." value="<?php echo $survey_start; ?>">
             </div>
             <br>
             <span class="help-block"><?php echo $start_err; ?></span>
@@ -190,7 +189,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
             <div class="form-group <?php echo (!empty($end_err)) ? 'has-error' : ''; ?>">
               <label>Ending Date:</label>
-              <input type="text" id="survey_end" name="end" placeholder="Enter survey ending date." value="<?php echo $survey_end; ?>">
+              <input type="date" id="survey_end" name="end" placeholder="Enter survey ending date." value="<?php echo $survey_end; ?>">
             </div>
             <br>
             <span class="help-block"><?php echo $end_err; ?></span>
@@ -207,8 +206,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                         type="text"
                         name="name[]"
                         placeholder="Enter 1-5 type question."
-                        class="input"
-                        required=""
+                        class="type1-1"
+                        id="type1-1"
                       />
                     </td>
                     <td>
@@ -234,8 +233,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                         type="text"
                         name="name[]"
                         placeholder="Enter text type question."
-                        class="input"
-                        required=""
+                        class="type2"
+                        id="type2"
                       />
                     </td>
                     <td>
@@ -264,29 +263,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 <script type="text/javascript">
     $(document).ready(function(){
       var i=1;
-      var j=1;
-      if(i < 6)
-      {
       $('#add1').click(function(){
            i++;
-           $('#type1').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter 1-5 type question" class="input" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove1">X</button></td></tr>');
+           $('#type1').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter 1-5 type question." class="type1-2" id="type1-2"/></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
       });
-      }
 
-      if(j < 6)
-      {
       $('#add2').click(function(){
-           j++;
-           $('#type2').append('<tr id="row'+j+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter text type question" class="input" required /></td><td><button type="button" name="remove" id="'+j+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
+           i++;
+           $('#type2').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter text type question." class="input" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
       });
-      }
-      $(document).on('click', '.btn_remove1', function(){
-          i--;
-           var button_id = $(this).attr("id");
-           $('#row'+button_id+'').remove();
-      });
-      $(document).on('click', '.btn_remove2', function(){
-          j--;
+      $(document).on('click', '.btn_remove', function(){
            var button_id = $(this).attr("id");
            $('#row'+button_id+'').remove();
       });

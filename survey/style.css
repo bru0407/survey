@@ -30,6 +30,7 @@ input[type=text]
 
   padding-bottom: 5px;
   padding-top: 5px;
+  padding: 5px;
 }
 
 input[type=email]
@@ -400,7 +401,12 @@ footer
 
 .createsurvey-page input[type=date]
 {
+  border:2px solid black;
+  border-radius:4px;
   width: 100%;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding: 5px;
 }
 
 .createsurvey-page input[type=text]
@@ -413,6 +419,7 @@ footer
   border:2px solid black;
   border-radius:4px;
   width: 100%;
+  padding: 5px;
 }
 
 .form-group
